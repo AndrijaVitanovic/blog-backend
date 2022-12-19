@@ -16,10 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "role")
 public class Role implements GrantedAuthority {
-    public static final Role ADMIN_ROLE = new Role(1, "ADMIN");
-    public static final Role AUTHOR_ROLE = new Role(2, "AUTHOR");
-    public static final Role USER_ROLE = new Role(3, "USER");
-    public static final String PREFIX = "ROLE_";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_USER = "ROLE_USER";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
@@ -30,14 +29,9 @@ public class Role implements GrantedAuthority {
     @JsonIgnore
     private List<User> users = new ArrayList<>();
 
-    public Role(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     @Override
     @JsonIgnore
     public String getAuthority() {
-        return PREFIX + name;
+        return name;
     }
 }
