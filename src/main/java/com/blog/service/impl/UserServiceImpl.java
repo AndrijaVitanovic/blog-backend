@@ -1,5 +1,6 @@
 package com.blog.service.impl;
 
+import com.blog.data.RegisterUserDto;
 import com.blog.entity.User;
 import com.blog.repository.UserRepository;
 import com.blog.service.UserService;
@@ -48,6 +49,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public void register(RegisterUserDto user) {
+
     }
 
     @Override
