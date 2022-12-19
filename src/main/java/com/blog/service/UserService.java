@@ -1,5 +1,6 @@
 package com.blog.service;
 
+import com.blog.data.RegisterUserDto;
 import com.blog.entity.User;
 
 import java.util.List;
@@ -17,5 +18,7 @@ public interface UserService {
     User update(User user);
 
     void deleteById(Long id);
+
+    void register(RegisterUserDto user);
 
 }
