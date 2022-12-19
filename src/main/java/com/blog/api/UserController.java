@@ -1,9 +1,11 @@
 package com.blog.api;
 
+import com.blog.data.RegisterUserDto;
 import com.blog.entity.User;
 import com.blog.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,5 +51,13 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PreAuthorize("permitAll()")
+    @PostMapping("/register")
+    @Operation(summary = "Registers a new user", security = @SecurityRequirement(name="bearerAuth"))
+    public ResponseEntity<Void> registerUser(@Valid @RequestBody RegisterUserDto registerUserDto) {
+        userService.register(registerUserDto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
