@@ -1,5 +1,6 @@
 package com.blog.entity;
 
+import com.blog.entity.domain.RecordStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
@@ -71,25 +72,23 @@ public class User extends Auditable implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        // TODO: implement RecordStatus enum
-        return false;
+        // TODO: Email verification
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        // TODO: implement RecordStatus enum
-        return false;
+        return getRecordStatus() != RecordStatus.LOCKED;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        // TODO: implement RecordStatus enum
-        return false;
+        return getRecordStatus() != RecordStatus.CREDENTIALS_EXPIRED;
     }
 
     @Override
     public boolean isEnabled() {
-        // TODO: implement RecordStatus enum
-        return false;
+        // TODO: Email verification
+        return getRecordStatus() == RecordStatus.ACTIVE;
     }
 }
