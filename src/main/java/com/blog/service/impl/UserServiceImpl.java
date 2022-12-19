@@ -2,6 +2,7 @@ package com.blog.service.impl;
 
 import com.blog.data.RegisterUserDto;
 import com.blog.entity.User;
+import com.blog.exception.EmailAlreadyExistsException;
 import com.blog.exception.PasswordMismatchException;
 import com.blog.repository.UserRepository;
 import com.blog.service.RoleService;
@@ -51,6 +52,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User update(User user) {
+        User existingUser = findById(user.getId());
+        user.setPassword(existingUser.getPassword());
+        user.setRecordStatus(existingUser.getRecordStatus());
+        user.setRoles(existingUser.getRoles());
         return userRepository.save(user);
     }
 
@@ -64,8 +69,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (!Objects.equals(registerUserDto.getPassword(), registerUserDto.getConfirmPassword())) {
             throw new PasswordMismatchException();
         }
+
+        userRepository.findByEmail(registerUserDto.getEmail())
+                .ifPresent(user -> {
+                    throw new EmailAlreadyExistsException();
+                });
         /*
-         * TODO: check if user with that email already exists
          * TODO: profile picture
          */
         User user = new User(

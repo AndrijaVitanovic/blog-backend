@@ -5,9 +5,11 @@ import com.blog.security.SecurityProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableConfigurationProperties({JwtProperties.class, SecurityProperties.class})
+@EnableJpaAuditing
 public class BlogApplication {
 
 	public static void main(String[] args) {

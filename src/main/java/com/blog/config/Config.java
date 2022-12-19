@@ -2,8 +2,13 @@ package com.blog.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Optional;
 
 /**
  * Global configuration class for the application.
@@ -18,4 +23,13 @@ public class Config {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public AuditorAware<String> auditorAware() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return () -> Optional.of("system");
+        } else {
+            return () -> Optional.of(authentication.getName());
+        }
+    }
 }
