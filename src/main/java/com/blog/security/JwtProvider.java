@@ -7,7 +7,6 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,11 +26,6 @@ public class JwtProvider {
 
     private final UserDetailsService userDetailsService;
     private final JwtProperties jwtProperties;
-
-//    @Value("${secret}")
-//    private String secret;
-//    @Value("${jwt.expiration-time}")
-//    private Long expirationTime;
 
     private static final String AUTHORIZATION = "Authorization";
     private static final String BEARER = "Bearer ";
