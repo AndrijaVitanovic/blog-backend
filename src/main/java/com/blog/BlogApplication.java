@@ -1,7 +1,7 @@
 package com.blog;
 
 import com.blog.config.JwtProperties;
-import com.blog.security.SecurityProperties;
+import com.blog.config.SecurityProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

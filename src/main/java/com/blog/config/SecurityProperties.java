@@ -1,4 +1,4 @@
-package com.blog.security;
+package com.blog.config;
 
 import lombok.Getter;
 import lombok.Setter;
