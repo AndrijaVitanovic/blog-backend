@@ -8,7 +8,7 @@ public interface TemplateProcessor {
      * Renders the given template with the given model.
      *
      * @param template name of the template
-     * @param model model data to be rendered
+     * @param model    model data to be rendered
      * @return rendered template
      */
     String process(String template, Map<String, Object> model);

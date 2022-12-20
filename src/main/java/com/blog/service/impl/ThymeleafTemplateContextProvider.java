@@ -16,7 +16,6 @@ public class ThymeleafTemplateContextProvider implements TemplateContextProvider
     private final ApplicationContext applicationContext;
     private final ConversionService conversionService;
 
-
     @Override
     public Context getContext() {
         Context context = new Context(LocaleContextHolder.getLocale(), null);
@@ -24,7 +23,6 @@ public class ThymeleafTemplateContextProvider implements TemplateContextProvider
                 ThymeleafEvaluationContext.THYMELEAF_EVALUATION_CONTEXT_CONTEXT_VARIABLE_NAME,
                 new ThymeleafEvaluationContext(applicationContext, conversionService)
         );
-
         return context;
     }
 }
