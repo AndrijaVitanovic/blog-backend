@@ -8,8 +8,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
-@EnableConfigurationProperties({JwtProperties.class, SecurityProperties.class})
 @EnableJpaAuditing
+@EnableConfigurationProperties({JwtProperties.class, SecurityProperties.class})
 public class BlogApplication {
 
 	public static void main(String[] args) {

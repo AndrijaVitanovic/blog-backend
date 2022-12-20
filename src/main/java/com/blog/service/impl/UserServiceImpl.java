@@ -1,10 +1,12 @@
 package com.blog.service.impl;
 
 import com.blog.data.RegisterUserDto;
+import com.blog.data.Template;
 import com.blog.entity.User;
 import com.blog.exception.EmailAlreadyExistsException;
 import com.blog.exception.PasswordMismatchException;
 import com.blog.repository.UserRepository;
+import com.blog.service.MailService;
 import com.blog.service.RoleService;
 import com.blog.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -27,6 +30,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
+    private final MailService mailService;
 
     @Override
     public List<User> findAll() {
@@ -89,6 +93,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 generateDisplayName(registerUserDto.getFirstName(), registerUserDto.getLastName()),
                 List.of(roleService.findByName(ROLE_USER)));
         save(user);
+        mailService.sendMail(
+                user.getEmail(),
+                "Welcome to Blog!",
+                new Template("greeting-mail")
+        );
     }
 
     @Override
