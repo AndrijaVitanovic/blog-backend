@@ -2,7 +2,6 @@ package com.blog.entity;
 
 import com.blog.entity.domain.RecordStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
