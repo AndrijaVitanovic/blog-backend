@@ -94,8 +94,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 List.of(roleService.findByName(ROLE_USER)));
         save(user);
 
-        // TODO: Create email verification system,
-        //  so that we can avoid sending email here.
+        // TODO: Create email verification system, so that we can avoid sending email here.
         mailService.sendMail(
                 user.getEmail(),
                 "Welcome to Spotlight!",
