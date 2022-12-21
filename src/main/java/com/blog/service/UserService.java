@@ -29,4 +29,7 @@ public interface UserService {
     @Transactional
     void register(RegisterUserDto registerUserDto);
 
+
+    @Transactional
+    void verify(String token);
 }

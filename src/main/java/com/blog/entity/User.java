@@ -1,6 +1,7 @@
 package com.blog.entity;
 
 import com.blog.entity.domain.RecordStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,6 +42,9 @@ public class User extends Auditable implements UserDetails {
     private String about;
     @Column(name="display_name")
     private String displayName;
+    @Column(name="email_verified")
+    @JsonIgnore
+    private Boolean emailVerified = false;
     @ManyToMany(fetch = FetchType.EAGER)
     @JsonProperty(access = WRITE_ONLY)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_fk"), inverseJoinColumns = @JoinColumn(name = "role_fk"))
@@ -79,8 +83,7 @@ public class User extends Auditable implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        // TODO: Email verification
-        return true;
+        return emailVerified;
     }
 
     @Override
@@ -95,7 +98,6 @@ public class User extends Auditable implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        // TODO: Email verification
-        return getRecordStatus() == RecordStatus.ACTIVE;
+        return emailVerified && getRecordStatus() == RecordStatus.ACTIVE;
     }
 }

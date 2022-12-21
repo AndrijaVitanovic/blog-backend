@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.Clock;
 import java.util.Optional;
 
 /**
@@ -29,7 +30,13 @@ public class Config {
         if (authentication == null || !authentication.isAuthenticated()) {
             return () -> Optional.of("system");
         } else {
-            return () -> Optional.of(authentication.getName());
+            return () -> Optional.ofNullable(authentication.getName());
         }
+    }
+
+    // TODO: Maybe think about timezones and frontend/backend communication
+    @Bean
+    public Clock clock() {
+        return Clock.systemDefaultZone();
     }
 }

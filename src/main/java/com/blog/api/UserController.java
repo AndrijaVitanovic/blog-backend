@@ -56,8 +56,16 @@ public class UserController {
     @PreAuthorize("permitAll()")
     @PostMapping("/register")
     @Operation(summary = "Registers a new user", security = @SecurityRequirement(name="bearerAuth"))
-    public ResponseEntity<Void> registerUser(@Valid @RequestBody RegisterUserDto registerUserDto) {
+    public ResponseEntity<Void> register(@Valid @RequestBody RegisterUserDto registerUserDto) {
         userService.register(registerUserDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/verify")
+    @Operation(summary = "Verifies an user")
+    public ResponseEntity<String> verify(@RequestParam String token) {
+        userService.verify(token);
+        return ResponseEntity.ok("OK");
     }
 }
