@@ -51,6 +51,19 @@ public class User extends Auditable implements UserDetails {
 
     //TODO: Add contacts column
 
+    // Constructor for registration
+    public User(String username, String password, String email, String firstName, String lastName, String about, Media image, String displayName, List<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.about = about;
+        this.image = image;
+        this.displayName = displayName;
+        this.roles = roles;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles

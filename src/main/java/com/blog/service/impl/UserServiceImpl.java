@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -82,7 +83,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
          * TODO: profile picture
          */
         User user = new User(
-                null,
                 registerUserDto.getUsername(),
                 passwordEncoder.encode(registerUserDto.getPassword()),
                 registerUserDto.getEmail(),
@@ -93,10 +93,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 generateDisplayName(registerUserDto.getFirstName(), registerUserDto.getLastName()),
                 List.of(roleService.findByName(ROLE_USER)));
         save(user);
+
+        // TODO: Create email verification system,
+        //  so that we can avoid sending email here.
         mailService.sendMail(
                 user.getEmail(),
-                "Welcome to Blog!",
-                new Template("greeting-mail")
+                "Welcome to Spotlight!",
+                new Template("verification-mail"),
+                Map.of("name", user.getFirstName())
         );
     }
 
