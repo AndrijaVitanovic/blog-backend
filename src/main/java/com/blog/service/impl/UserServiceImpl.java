@@ -15,14 +15,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
-
-import static com.blog.entity.Role.ROLE_USER;
 
 @Service
 @RequiredArgsConstructor
@@ -89,9 +86,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 registerUserDto.getFirstName(),
                 registerUserDto.getLastName(),
                 registerUserDto.getAbout(),
-                null,
-                generateDisplayName(registerUserDto.getFirstName(), registerUserDto.getLastName()),
-                List.of(roleService.findByName(ROLE_USER)));
+                generateDisplayName(registerUserDto.getFirstName(), registerUserDto.getLastName())
+        );
         save(user);
 
         // TODO: Create email verification system, so that we can avoid sending email here.

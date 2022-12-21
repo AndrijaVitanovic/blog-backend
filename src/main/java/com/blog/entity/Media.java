@@ -7,6 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import static jakarta.persistence.EnumType.STRING;
+
+/**
+ * Right now is not used, needs to be optimized.
+ */
 @Getter
 @Setter
 @Entity
@@ -20,8 +25,9 @@ public class Media extends Auditable {
     private Integer id;
     @Column(name = "keywords")
     private String keywords;
+    @Enumerated(STRING)
     @Column(name = "type")
-    private MediaType type = MediaType.POST_IMAGE;
+    private MediaType type;
     @Column(name = "uri")
     private String uri;
     @Column(name = "height")

@@ -39,9 +39,6 @@ public class User extends Auditable implements UserDetails {
     private String lastName;
     @Column(name = "about")
     private String about;
-    @JoinColumn(name = "image_fk", referencedColumnName = "media_id")
-    @ManyToOne
-    private Media image;
     @Column(name="display_name")
     private String displayName;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -52,16 +49,14 @@ public class User extends Auditable implements UserDetails {
     //TODO: Add contacts column
 
     // Constructor for registration
-    public User(String username, String password, String email, String firstName, String lastName, String about, Media image, String displayName, List<Role> roles) {
+    public User(String username, String password, String email, String firstName, String lastName, String about, String displayName) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.about = about;
-        this.image = image;
         this.displayName = displayName;
-        this.roles = roles;
     }
 
     @Override
