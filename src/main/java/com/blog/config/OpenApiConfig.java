@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @OpenAPIDefinition(info = @Info(
-        title = "Blog API",
-        description = "Blog API for frontend to use",
+        title = "Spotlight API",
+        description = "Spotlight API for frontend to use",
         version = "v1"))
 @SecurityScheme(
         name = "bearerAuth",
