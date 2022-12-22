@@ -10,6 +10,7 @@ import com.blog.repository.UserRepository;
 import com.blog.service.EmailVerificationRequestService;
 import com.blog.service.RoleService;
 import com.blog.service.UserService;
+import com.blog.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -77,20 +79,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new PasswordMismatchException();
         }
 
-        /*
-         * TODO: profile picture
-         */
-
-        // TODO: move this to Dto
-        User user = new User(
-                registerUserDto.username(),
-                passwordEncoder.encode(registerUserDto.password()),
-                registerUserDto.email(),
-                registerUserDto.firstName(),
-                registerUserDto.lastName(),
-                registerUserDto.about(),
-                generateDisplayName(registerUserDto.firstName(), registerUserDto.lastName())
-        );
+        User user = registerUserDto.toUser();
+        user.setPassword(passwordEncoder.encode(registerUserDto.password()));
+        user.setDisplayName(StringUtils.generateString());
         save(user);
         emailVerificationRequestService.createVerification(user);
     }
@@ -106,11 +97,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return findByEmail(username);
-    }
-
-    // TODO: Make some cool generate display name method.
-    private String generateDisplayName(String firstName, String lastName) {
-        return firstName + " " + lastName;
     }
 
     private void finalizeRegistration(User user) {

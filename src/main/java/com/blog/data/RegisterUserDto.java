@@ -1,5 +1,6 @@
 package com.blog.data;
 
+import com.blog.entity.User;
 import com.blog.validation.annotation.Email;
 import com.blog.validation.annotation.Password;
 import lombok.AllArgsConstructor;
@@ -19,4 +20,14 @@ public record RegisterUserDto(
         String lastName,
         String about
 ) {
+
+    public User toUser() {
+        User user = new User();
+        user.setUsername(this.username);
+        user.setEmail(this.email);
+        user.setFirstName(this.firstName);
+        user.setLastName(this.lastName);
+        user.setAbout(this.about);
+        return user;
+    }
 }

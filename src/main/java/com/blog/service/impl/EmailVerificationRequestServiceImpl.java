@@ -10,15 +10,12 @@ import com.blog.exception.EmailVerificationExpiredException;
 import com.blog.repository.EmailVerificationRequestRepository;
 import com.blog.service.EmailVerificationRequestService;
 import com.blog.service.MailService;
+import com.blog.util.StringUtils;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.time.Clock;
 import java.time.Instant;
-import java.util.Base64;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -59,7 +56,7 @@ public class EmailVerificationRequestServiceImpl implements EmailVerificationReq
                 .now(clock)
                 .plusSeconds(mailProperties.getVerificationValiditySeconds());
 
-        String token = generateToken(email, validUntil);
+        String token = StringUtils.generateString();
 
         EmailVerificationRequest emailVerificationRequest = new EmailVerificationRequest(
                 email,
@@ -78,15 +75,6 @@ public class EmailVerificationRequestServiceImpl implements EmailVerificationReq
                         "name", user.getFirstName()
                 )
         );
-    }
-
-    // TODO: maybe use UUID to avoid hashing.
-    @SneakyThrows
-    private String generateToken(String email, Instant validUntil) {
-        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-        String token = email + validUntil.getEpochSecond();
-        byte[] hash = messageDigest.digest(token.trim().getBytes(StandardCharsets.UTF_8));
-        return Base64.getEncoder().encodeToString(hash);
     }
 
     private EmailVerificationRequest setVerified(EmailVerificationRequest emailVerificationRequest) {

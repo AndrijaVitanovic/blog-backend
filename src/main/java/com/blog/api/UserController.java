@@ -55,7 +55,7 @@ public class UserController {
 
     @PreAuthorize("permitAll()")
     @PostMapping("/register")
-    @Operation(summary = "Registers a new user", security = @SecurityRequirement(name="bearerAuth"))
+    @Operation(summary = "Registers a new user")
     public ResponseEntity<Void> register(@Valid @RequestBody RegisterUserDto registerUserDto) {
         userService.register(registerUserDto);
         return ResponseEntity.noContent().build();
