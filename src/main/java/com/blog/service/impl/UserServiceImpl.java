@@ -68,25 +68,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void register(RegisterUserDto registerUserDto) {
-        if (!Objects.equals(registerUserDto.getPassword(), registerUserDto.getConfirmPassword())) {
-            throw new PasswordMismatchException();
-        }
-
-        userRepository.findByEmail(registerUserDto.getEmail())
+        userRepository.findByEmail(registerUserDto.email())
                 .ifPresent(user -> {
                     throw new EmailAlreadyExistsException();
                 });
+
+        if (!Objects.equals(registerUserDto.password(), registerUserDto.confirmPassword())) {
+            throw new PasswordMismatchException();
+        }
+
         /*
          * TODO: profile picture
          */
+
+        // TODO: move this to Dto
         User user = new User(
-                registerUserDto.getUsername(),
-                passwordEncoder.encode(registerUserDto.getPassword()),
-                registerUserDto.getEmail(),
-                registerUserDto.getFirstName(),
-                registerUserDto.getLastName(),
-                registerUserDto.getAbout(),
-                generateDisplayName(registerUserDto.getFirstName(), registerUserDto.getLastName())
+                registerUserDto.username(),
+                passwordEncoder.encode(registerUserDto.password()),
+                registerUserDto.email(),
+                registerUserDto.firstName(),
+                registerUserDto.lastName(),
+                registerUserDto.about(),
+                generateDisplayName(registerUserDto.firstName(), registerUserDto.lastName())
         );
         save(user);
         emailVerificationRequestService.createVerification(user);
@@ -105,6 +108,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return findByEmail(username);
     }
 
+    // TODO: Make some cool generate display name method.
     private String generateDisplayName(String firstName, String lastName) {
         return firstName + " " + lastName;
     }
@@ -112,8 +116,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private void finalizeRegistration(User user) {
         user.setEmailVerified(true);
         user.getRoles().add(roleService.findByName(Role.ROLE_USER));
-        // This somehow needs to be avoided.
-        user.setRoles(user.getRoles());
         update(user);
     }
 }

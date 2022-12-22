@@ -10,11 +10,9 @@ import com.blog.exception.EmailVerificationExpiredException;
 import com.blog.repository.EmailVerificationRequestRepository;
 import com.blog.service.EmailVerificationRequestService;
 import com.blog.service.MailService;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -38,7 +36,7 @@ public class EmailVerificationRequestServiceImpl implements EmailVerificationReq
         EmailVerificationRequest emailVerificationRequest =
                 emailVerificationRequestRepository.findByToken(token)
                         .orElseThrow(() -> new NoSuchElementException("Email verification not found!"));
-        if (emailVerificationRequest.isVerified())
+        if (emailVerificationRequest.getVerified())
             throw new EmailAlreadyVerifiedException();
 
         if (Instant.now(clock).isAfter(emailVerificationRequest.getValidUntil()))
@@ -48,7 +46,7 @@ public class EmailVerificationRequestServiceImpl implements EmailVerificationReq
     }
 
     @Override
-    public EmailVerificationRequest createVerification(User user) {
+    public void createVerification(User user) {
         String email = user.getEmail();
 
         if (user.getEmailVerified())
@@ -69,7 +67,7 @@ public class EmailVerificationRequestServiceImpl implements EmailVerificationReq
                 validUntil
         );
 
-        emailVerificationRequest = emailVerificationRequestRepository.save(emailVerificationRequest);
+        emailVerificationRequestRepository.save(emailVerificationRequest);
         mailService.sendMail(
                 email,
                 "Verification email",
@@ -80,14 +78,14 @@ public class EmailVerificationRequestServiceImpl implements EmailVerificationReq
                         "name", user.getFirstName()
                 )
         );
-        return emailVerificationRequest;
     }
 
+    // TODO: maybe use UUID to avoid hashing.
     @SneakyThrows
     private String generateToken(String email, Instant validUntil) {
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
         String token = email + validUntil.getEpochSecond();
-        byte[] hash = messageDigest.digest(token.getBytes(StandardCharsets.UTF_8));
+        byte[] hash = messageDigest.digest(token.trim().getBytes(StandardCharsets.UTF_8));
         return Base64.getEncoder().encodeToString(hash);
     }
 

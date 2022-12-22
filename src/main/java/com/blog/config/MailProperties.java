@@ -12,8 +12,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class MailProperties {
 
     @Positive
-    long verificationValiditySeconds = 5 * 60;
-
+    private final long verificationValiditySeconds = 5 * 60;
+    
     @NotBlank
-    String verificationEndpoint;
+    private String verificationEndpoint;
 }

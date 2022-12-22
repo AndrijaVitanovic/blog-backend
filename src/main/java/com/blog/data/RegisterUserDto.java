@@ -10,21 +10,13 @@ import lombok.Setter;
 /**
  * Dto class for registering new user.
  */
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class RegisterUserDto {
-
-    private String username;
-    @Password
-    private String password;
-    @Password
-    private String confirmPassword;
-    @Email
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String about;
-
+public record RegisterUserDto(
+        String username,
+        @Password String password,
+        @Password String confirmPassword,
+        @Email String email,
+        String firstName,
+        String lastName,
+        String about
+) {
 }

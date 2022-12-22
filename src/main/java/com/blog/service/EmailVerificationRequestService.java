@@ -7,5 +7,5 @@ public interface EmailVerificationRequestService {
 
     EmailVerificationRequest verify(String token);
 
-    EmailVerificationRequest createVerification(User user);
+    void createVerification(User user);
 }

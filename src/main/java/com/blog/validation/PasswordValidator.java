@@ -14,7 +14,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
     // Write regex for password validation that validates that password contains at least one uppercase letter,
     // one lowercase letter, one digit and one special character and is at least 8 characters long
     private static final String VALID_PASSWORD_REGEX
-            = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+            = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,128}$";
 
     private static final Pattern pattern = Pattern.compile(VALID_PASSWORD_REGEX);
 

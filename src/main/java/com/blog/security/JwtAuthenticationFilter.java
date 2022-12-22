@@ -25,7 +25,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
         LoginDto loginDto = new ObjectMapper().readValue(request.getInputStream(), LoginDto.class);
         return authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword())
+                new UsernamePasswordAuthenticationToken(loginDto.username(), loginDto.password())
         );
     }
 
@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                          FilterChain chain,
                                          Authentication authResult) {
         String token = jwtProvider.generateToken(authResult.getName(), authResult.getAuthorities());
-        response.getOutputStream().println(token);
+        response.getOutputStream().print(token);
     }
 
     @Override
@@ -45,6 +45,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                            HttpServletResponse response,
                                            AuthenticationException failed) {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        response.getOutputStream().println(failed.getMessage());
+        response.getOutputStream().print(failed.getMessage());
     }
 }

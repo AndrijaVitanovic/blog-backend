@@ -30,7 +30,7 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendMail(String to, String subject, Template template, Map<String, Object> data) {
-        sendMail(to, subject, templateProcessor.process(template.getName(), data));
+        sendMail(to, subject, templateProcessor.process(template.getValue(), data));
     }
 
     @Override

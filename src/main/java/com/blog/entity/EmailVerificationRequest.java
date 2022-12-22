@@ -24,15 +24,7 @@ public class EmailVerificationRequest extends Auditable {
     @Column(name="valid_until")
     private Instant validUntil;
     @Column(name="is_verified")
-    private Boolean isVerified = false;
-
-    public Boolean isVerified() {
-        return isVerified;
-    }
-
-    public void setVerified(Boolean isVerified) {
-        this.isVerified = isVerified;
-    }
+    private Boolean verified = false;
 
     public EmailVerificationRequest(String email, String token, Instant validUntil) {
         this.email = email;

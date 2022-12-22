@@ -25,6 +25,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 
         UserDetails user = userDetailsService.loadUserByUsername(email);
 
+        // TODO: check record status for user
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("Invalid credentials!");
         }

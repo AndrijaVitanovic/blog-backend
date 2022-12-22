@@ -13,5 +13,5 @@ import java.util.List;
 @ConfigurationProperties("security")
 public class SecurityProperties {
 
-    List<String> allowedOrigins = List.of("*");
+    private List<String> allowedOrigins = List.of("*");
 }

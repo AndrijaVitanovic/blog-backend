@@ -19,9 +19,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class JwtProvider {
 
     private final UserDetailsService userDetailsService;
@@ -30,6 +30,7 @@ public class JwtProvider {
     private static final String AUTHORIZATION = "Authorization";
     private static final String BEARER = "Bearer ";
 
+    
     public Optional<Jws<Claims>> resolveToken(String token) {
         return Optional.ofNullable(Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -44,7 +45,7 @@ public class JwtProvider {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
-                .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getExpirationTime() * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.expirationTime() * 1000))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS512)
                 .compact();
     }
@@ -78,7 +79,7 @@ public class JwtProvider {
     }
 
     public Key getSigningKey() {
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtProperties.getSecret()));
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtProperties.secret()));
     }
 }
 

@@ -27,11 +27,9 @@ public class Config {
     @Bean
     public AuditorAware<String> auditorAware() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return () -> Optional.of("system");
-        } else {
-            return () -> Optional.ofNullable(authentication.getName());
-        }
+        return () -> Optional.of(authentication == null
+                ? "system"
+                : authentication.getName());
     }
 
     // TODO: Maybe think about timezones and frontend/backend communication

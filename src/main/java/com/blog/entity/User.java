@@ -30,7 +30,7 @@ public class User extends Auditable implements UserDetails {
     @Column(name = "username")
     private String username;
     @Column(name = "password")
-    @JsonProperty(access = WRITE_ONLY)
+    @JsonIgnore
     private String password;
     @Column(name = "email")
     private String email;
@@ -45,6 +45,7 @@ public class User extends Auditable implements UserDetails {
     @Column(name="email_verified")
     @JsonIgnore
     private Boolean emailVerified = false;
+    // TODO: Maybe get rid of WRITE_ONLY
     @ManyToMany(fetch = FetchType.EAGER)
     @JsonProperty(access = WRITE_ONLY)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_fk"), inverseJoinColumns = @JoinColumn(name = "role_fk"))
