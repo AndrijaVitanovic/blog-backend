@@ -3,10 +3,6 @@ package com.blog.data;
 import com.blog.entity.User;
 import com.blog.validation.annotation.Email;
 import com.blog.validation.annotation.Password;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * Dto class for registering new user.
@@ -21,7 +17,7 @@ public record RegisterUserDto(
         String about
 ) {
 
-    public User toUser() {
+    public User toEntity() {
         User user = new User();
         user.setUsername(this.username);
         user.setEmail(this.email);

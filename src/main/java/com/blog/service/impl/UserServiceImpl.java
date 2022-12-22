@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -79,7 +78,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new PasswordMismatchException();
         }
 
-        User user = registerUserDto.toUser();
+        User user = registerUserDto.toEntity();
         user.setPassword(passwordEncoder.encode(registerUserDto.password()));
         user.setDisplayName(StringUtils.generateString());
         save(user);
