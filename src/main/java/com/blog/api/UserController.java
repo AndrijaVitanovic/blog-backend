@@ -1,6 +1,6 @@
 package com.blog.api;
 
-import com.blog.data.RegisterUserDto;
+import com.blog.data.RegisterDto;
 import com.blog.entity.User;
 import com.blog.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -56,8 +56,8 @@ public class UserController {
     @PreAuthorize("permitAll()")
     @PostMapping("/register")
     @Operation(summary = "Registers a new user")
-    public ResponseEntity<Void> register(@Valid @RequestBody RegisterUserDto registerUserDto) {
-        userService.register(registerUserDto);
+    public ResponseEntity<Void> register(@Valid @RequestBody RegisterDto registerDto) {
+        userService.register(registerDto);
         return ResponseEntity.noContent().build();
     }
 
@@ -66,6 +66,6 @@ public class UserController {
     @Operation(summary = "Verifies an user")
     public ResponseEntity<String> verify(@RequestParam String token) {
         userService.verify(token);
-        return ResponseEntity.ok("OK");
+        return ResponseEntity.noContent().build();
     }
 }

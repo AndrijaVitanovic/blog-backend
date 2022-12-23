@@ -1,6 +1,6 @@
 package com.blog.service.impl;
 
-import com.blog.data.RegisterUserDto;
+import com.blog.data.RegisterDto;
 import com.blog.entity.EmailVerificationRequest;
 import com.blog.entity.Role;
 import com.blog.entity.User;
@@ -68,18 +68,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void register(RegisterUserDto registerUserDto) {
-        userRepository.findByEmail(registerUserDto.email())
+    public void register(RegisterDto registerDto) {
+        userRepository.findByEmail(registerDto.email())
                 .ifPresent(user -> {
                     throw new EmailAlreadyExistsException();
                 });
 
-        if (!Objects.equals(registerUserDto.password(), registerUserDto.confirmPassword())) {
+        if (!Objects.equals(registerDto.password(), registerDto.confirmPassword())) {
             throw new PasswordMismatchException();
         }
 
-        User user = registerUserDto.toEntity();
-        user.setPassword(passwordEncoder.encode(registerUserDto.password()));
+        User user = registerDto.toEntity();
+        user.setPassword(passwordEncoder.encode(registerDto.password()));
         user.setDisplayName(StringUtils.generateString());
         save(user);
         emailVerificationRequestService.createVerification(user);
