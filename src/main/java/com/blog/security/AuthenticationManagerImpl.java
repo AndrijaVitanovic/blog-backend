@@ -1,6 +1,5 @@
 package com.blog.security;
 
-import com.blog.entity.Role;
 import com.blog.service.AuthorizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,7 +31,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
         UserDetails user = userDetailsService.loadUserByUsername(email);
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new BadCredentialsException("Invalid credentials!");
+            throw new BadCredentialsException("Invalid password!");
         }
 
         Collection<? extends GrantedAuthority> roles = authorizationService.getActiveRoles(user);
