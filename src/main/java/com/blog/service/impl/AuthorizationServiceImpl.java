@@ -10,6 +10,7 @@ import java.util.Collection;
 
 @Service
 public class AuthorizationServiceImpl implements AuthorizationService {
+
     @Override
     public Collection<? extends GrantedAuthority> getActiveRoles(UserDetails user) {
         // TODO: Think about other cases, like what happens when account is expired
