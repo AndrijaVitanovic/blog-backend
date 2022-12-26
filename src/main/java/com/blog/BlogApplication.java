@@ -3,6 +3,7 @@ package com.blog;
 import com.blog.config.JwtProperties;
 import com.blog.config.MailProperties;
 import com.blog.config.SecurityProperties;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -14,6 +15,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 		JwtProperties.class,
 		SecurityProperties.class,
 		MailProperties.class})
+@EnableRabbit
 public class BlogApplication {
 
 	public static void main(String[] args) {

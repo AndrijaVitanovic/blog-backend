@@ -22,7 +22,7 @@ public class Media extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     @Column(name = "media_id")
-    private Integer id;
+    private Long id;
     @Column(name = "keywords")
     private String keywords;
     @Enumerated(STRING)

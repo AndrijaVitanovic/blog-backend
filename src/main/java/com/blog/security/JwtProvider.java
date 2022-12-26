@@ -49,6 +49,14 @@ public class JwtProvider {
                 .signWith(getSigningKey(), SignatureAlgorithm.HS512)
                 .compact();
     }
+    public String getUsername(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
 
     public Boolean validateToken(Jws<Claims> claims) {
         return !claims.getBody().getExpiration().before(new Date());
