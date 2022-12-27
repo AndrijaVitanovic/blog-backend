@@ -15,7 +15,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 		JwtProperties.class,
 		SecurityProperties.class,
 		MailProperties.class})
-@EnableRabbit
 public class BlogApplication {
 
 	public static void main(String[] args) {

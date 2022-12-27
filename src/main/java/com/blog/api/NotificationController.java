@@ -26,7 +26,9 @@ public class NotificationController {
     @Operation(hidden = true)
     public List<Notification> getAllNotifications(@DestinationVariable String email) {
         Specification<Notification> specification = (root, query, criteriaBuilder) ->
-                criteriaBuilder.equal(root.get("user").get("email"), email);
+                criteriaBuilder.and(
+                        criteriaBuilder.equal(root.get("user").get("email"), email),
+                        criteriaBuilder.equal(root.get("seen"), false));
         Sort sort = Sort.by("createdDate").descending();
         Pageable pageable = PageRequest.of(0, 10, sort);
         return notificationService.findAll(specification, pageable);

@@ -34,6 +34,7 @@ public class NotificationServiceImpl implements NotificationService {
     public void markSeen(Long notificationId) {
         Notification notification = findById(notificationId);
         notification.setSeenTime(Instant.now(clock));
+        notification.setSeen(true);
         notificationRepository.save(notification);
     }
 

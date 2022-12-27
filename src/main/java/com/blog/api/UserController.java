@@ -34,6 +34,11 @@ public class UserController {
         return ResponseEntity.ok(userService.findById(id));
     }
 
+    @GetMapping("/email")
+    @Operation(summary = "Gets user by email", security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
+        return ResponseEntity.ok(userService.findByEmail(email));
+    }
     @PostMapping
     @Operation(summary = "Creates a new user", security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<User> saveUser(@RequestBody User user) {

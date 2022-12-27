@@ -50,10 +50,11 @@ public class JwtProvider {
                 .compact();
     }
     public String getUsername(String token) {
+        String res = token.substring(BEARER.length());
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
-                .parseClaimsJws(token)
+                .parseClaimsJws(res)
                 .getBody()
                 .getSubject();
     }
