@@ -13,13 +13,14 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @RequiredArgsConstructor
 public class WebSocketAuthInterceptor implements ChannelInterceptor {
 
     private final JwtProvider jwtProvider;
-    private final Map<String, String> userSessions = new HashMap<>();
+    private final WebSocketUserSessionStore webSocketUserSessionStore;
 
     @Override
     public Message<?> preSend(final Message<?> message, final MessageChannel channel) {
@@ -29,10 +30,10 @@ public class WebSocketAuthInterceptor implements ChannelInterceptor {
             String token = accessor.getFirstNativeHeader("Authorization");
             if (Objects.nonNull(token)) {
                 String username = jwtProvider.getUsername(token);
-                userSessions.put(sessionId, username);
+                webSocketUserSessionStore.add(sessionId, username);
             }
         } else if (StompCommand.DISCONNECT == accessor.getCommand()) {
-            userSessions.remove(sessionId);
+            webSocketUserSessionStore.removeSessionId(sessionId);
         }
         return message;
     }
