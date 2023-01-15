@@ -17,7 +17,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         // or if credentials is expired. Think about changing role system to be more
         // realistic.
         if (!user.isEnabled()) {
-            throw new DisabledException("Account is disabled!");
+            throw new DisabledException("You need to verify email to login!");
         }
         return user.getAuthorities();
     }
