@@ -51,7 +51,13 @@ public class User extends Auditable implements UserDetails {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_fk"), inverseJoinColumns = @JoinColumn(name = "role_fk"))
     private List<Role> roles = new ArrayList<>();
 
-    //TODO: Add contacts column
+    @OneToMany(mappedBy = "user")
+    private List<Contact> contacts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts = new ArrayList<>();
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
