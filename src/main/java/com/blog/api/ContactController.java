@@ -34,7 +34,6 @@ public class ContactController {
         return ResponseEntity.ok(contactService.findById(id));
     }
 
-
     @PostMapping
     @Operation(summary = "Creates a new contact", security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<Contact> saveContact(@RequestBody Contact contact) {

@@ -1,7 +1,9 @@
 package com.blog.service.impl;
 
 import com.blog.entity.Comment;
+import com.blog.entity.Post;
 import com.blog.repository.CommentRepository;
+import com.blog.repository.PostRepository;
 import com.blog.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.util.NoSuchElementException;
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
 
     @Override
     public List<Comment> findAll() {

@@ -1,5 +1,6 @@
 package com.blog.api;
 
+import com.blog.entity.Post;
 import com.blog.entity.Tag;
 import com.blog.service.TagService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,5 +50,11 @@ public class TagController {
     public ResponseEntity<Void> deleteTag(@PathVariable Long id) {
         tagService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/post/{id}")
+    @Operation(summary = "Gets posts by tag id", security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<List<Post>> getPostsByTagId(@PathVariable Long id) {
+        return ResponseEntity.ok(tagService.findPostsByTagId(id));
     }
 }

@@ -1,5 +1,6 @@
 package com.blog.service.impl;
 
+import com.blog.entity.Post;
 import com.blog.entity.Tag;
 import com.blog.repository.TagRepository;
 import com.blog.service.TagService;
@@ -39,5 +40,10 @@ public class TagServiceImpl implements TagService {
     @Override
     public void deleteById(Long tagId) {
         tagRepository.deleteById(tagId);
+    }
+
+    @Override
+    public List<Post> findPostsByTagId(Long tagId) {
+        return findById(tagId).getPosts();
     }
 }

@@ -47,6 +47,9 @@ public class Post extends Auditable {
     @JoinColumn(name = "user_fk", referencedColumnName = "user_id")
     @ManyToOne
     private User user;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 }
 
 
