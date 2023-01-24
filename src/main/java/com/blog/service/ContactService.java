@@ -5,6 +5,7 @@ import com.blog.entity.Contact;
 import java.util.List;
 
 public interface ContactService {
+
     List<Contact> findAll();
 
     Contact save(Contact contact);

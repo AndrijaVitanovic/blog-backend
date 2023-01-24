@@ -19,7 +19,8 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "post")
-public class Post extends Auditable{
+public class Post extends Auditable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
@@ -39,7 +40,9 @@ public class Post extends Auditable{
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JsonProperty(access = WRITE_ONLY)
-    @JoinTable(name = "post_tag", joinColumns = @JoinColumn(name = "post_fk"), inverseJoinColumns = @JoinColumn(name = "tag_fk"))
+    @JoinTable(name = "post_tag",
+            joinColumns = @JoinColumn(name = "post_fk"),
+            inverseJoinColumns = @JoinColumn(name = "tag_fk"))
     private List<Tag> tags = new ArrayList<>();
     @JoinColumn(name = "user_fk", referencedColumnName = "user_id")
     @ManyToOne

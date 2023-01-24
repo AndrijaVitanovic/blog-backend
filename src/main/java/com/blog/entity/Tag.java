@@ -23,10 +23,15 @@ public class Tag extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tag_id")
     private Long id;
+
     @Column(name = "name")
     private String name;
-    @ManyToMany(mappedBy = "tags")
+
     @JsonIgnore
+    @ManyToMany
+    @JoinTable(name="post_tag",
+            joinColumns = @JoinColumn(name="tag_fk"),
+            inverseJoinColumns = @JoinColumn(name="post_fk"))
     private List<Post> posts = new ArrayList<>();
 }
 

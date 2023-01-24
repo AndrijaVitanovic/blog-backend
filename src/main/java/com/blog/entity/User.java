@@ -54,11 +54,6 @@ public class User extends Auditable implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Contact> contacts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts = new ArrayList<>();
-
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles
