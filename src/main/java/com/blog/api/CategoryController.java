@@ -21,12 +21,14 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+    @PreAuthorize("permitAll()")
     @GetMapping
     @Operation(summary = "Get all categories", security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<List<Category>> getAllCategories() {
         return ResponseEntity.ok(categoryService.findAll());
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/{id}")
     @Operation(summary = "Gets category by id", security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
