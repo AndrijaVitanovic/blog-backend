@@ -20,5 +20,7 @@ public class Category extends Auditable {
     private Long id;
     @Column(name = "name")
     private String name;
+    @Column(name = "icon")
+    private String icon;
 }
 
