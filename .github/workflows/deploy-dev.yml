@@ -16,6 +16,7 @@ jobs:
       - run: mvn --batch-mode --update-snapshots package -Pdev
         env:
           SPRING_MAIL_PASSWORD: ${{ secrets.SPRING_MAIL_PASSWORD }}
+          SPRING_MAIL_USERNAME: ${{ secrets.SPRING_MAIL_USERNAME }}
       - uses: burnett01/rsync-deployments@5.2
         with:
           switches: -havz
