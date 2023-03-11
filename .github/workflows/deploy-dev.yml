@@ -17,8 +17,7 @@ jobs:
         env:
           SPRING_MAIL_PASSWORD: ${{ secrets.SPRING_MAIL_PASSWORD }}
           SPRING_MAIL_USERNAME: ${{ secrets.SPRING_MAIL_USERNAME }}
-        run: mvn --batch-mode --update-snapshots package -Pdev
-
+        run: export SPRING_MAIL_PASSWORD=$SPRING_MAIL_PASSWORD && export SPRING_MAIL_USERNAME=$SPRING_MAIL_USERNAME && mvn --batch-mode --update-snapshots package -Pdev
       - uses: burnett01/rsync-deployments@5.2
         with:
           switches: -havz
@@ -26,15 +25,13 @@ jobs:
           remote_user: ${{ secrets.SERVER_DEV_USER }}
           remote_key: ${{ secrets.SERVER_DEV_PRIVATE_KEY }}
           remote_port: ${{ secrets.SERVER_DEV_PORT }}
-          SPRING_MAIL_PASSWORD: ${{ secrets.SPRING_MAIL_PASSWORD }}
-          SPRING_MAIL_USERNAME: ${{ secrets.SPRING_MAIL_USERNAME }}
           path: target/blog-0.0.1-SNAPSHOT.jar
           remote_path: /root/blog/backend/blog-0.0.1-SNAPSHOT.jar
       - name: Restart server
         uses: appleboy/ssh-action@master
         with:
-            host: ${{ secrets.SERVER_DEV_HOST }}
-            username: ${{ secrets.SERVER_DEV_USER }}
-            key: ${{ secrets.SERVER_DEV_PRIVATE_KEY }}
-            port: ${{ secrets.SERVER_DEV_PORT }}
-            script: systemctl restart blog-backend.service
+          host: ${{ secrets.SERVER_DEV_HOST }}
+          username: ${{ secrets.SERVER_DEV_USER }}
+          key: ${{ secrets.SERVER_DEV_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_DEV_PORT }}
+          script: systemctl restart blog-backend.service
