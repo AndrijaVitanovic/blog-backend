@@ -35,6 +35,7 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.findById(id));
     }
 
+
     @PostMapping
     @Operation(summary = "Creates a new category", security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<Category> saveCategory(@RequestBody Category category) {
