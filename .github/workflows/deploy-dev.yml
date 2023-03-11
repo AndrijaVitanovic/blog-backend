@@ -13,10 +13,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: 'maven'
-      - run: mvn --batch-mode --update-snapshots package -Pdev
+      - name: Build with Maven
         env:
           SPRING_MAIL_PASSWORD: ${{ secrets.SPRING_MAIL_PASSWORD }}
           SPRING_MAIL_USERNAME: ${{ secrets.SPRING_MAIL_USERNAME }}
+        run: mvn --batch-mode --update-snapshots package -Pdev
+
       - uses: burnett01/rsync-deployments@5.2
         with:
           switches: -havz
