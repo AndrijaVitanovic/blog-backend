@@ -133,7 +133,7 @@
             <properties>
                 <spring.profiles.active>dev,swagger</spring.profiles.active>
                 <spring.mail.username>${env.SPRING_MAIL_USERNAME}</spring.mail.username>
-                <spring.mail.password>${env.SPRING_MAIL_PASSSWORD}</spring.mail.password>
+                <spring.mail.password>${env.SPRING_MAIL_PASSWORD}</spring.mail.password>
             </properties>
         </profile>
     </profiles>
