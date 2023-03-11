@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [assigned, opened, synchronize, reopened]
 jobs:
-test:
+  test:
     runs-on: [ self-hosted, test ]
     steps:
       - uses: actions/checkout@v3

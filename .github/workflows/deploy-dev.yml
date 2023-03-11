@@ -24,7 +24,7 @@ jobs:
           remote_key: ${{ secrets.SERVER_DEV_PRIVATE_KEY }}
           remote_port: ${{ secrets.SERVER_DEV_PORT }}
           path: target/blog-0.0.1-SNAPSHOT.jar
-          remote_path: /root/blog-backend/blog-0.0.1-SNAPSHOT.jar
+          remote_path: /root/blog/backend/blog-0.0.1-SNAPSHOT.jar
       - name: Restart server
         uses: appleboy/ssh-action@master
         with:
