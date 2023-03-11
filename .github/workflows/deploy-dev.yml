@@ -14,6 +14,8 @@ jobs:
           java-version: '17'
           cache: 'maven'
       - run: mvn --batch-mode --update-snapshots package -Pdev
+        env:
+          SPRING_MAIL_PASSWORD: ${{ secrets.SPRING_MAIL_PASSWORD }}
       - uses: burnett01/rsync-deployments@5.2
         with:
           switches: -havz
