@@ -13,7 +13,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: 'maven'
-      - run: mvn --batch-mode --update-snapshots package
+      - run: mvn --batch-mode --update-snapshots package -Pdev
       - uses: burnett01/rsync-deployments@5.2
         with:
           switches: -havz
