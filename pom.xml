@@ -132,7 +132,9 @@
             <id>dev</id>
             <properties>
                 <spring.profiles.active>dev,swagger</spring.profiles.active>
+                <!--suppress UnresolvedMavenProperty -->
                 <spring.mail.username>${env.SPRING_MAIL_USERNAME}</spring.mail.username>
+                <!--suppress UnresolvedMavenProperty -->
                 <spring.mail.password>${env.SPRING_MAIL_PASSWORD}</spring.mail.password>
             </properties>
         </profile>
