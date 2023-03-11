@@ -1,12 +1,12 @@
 package com.blog.service.impl;
 
+import com.blog.config.MailProperties;
 import com.blog.data.Template;
 import com.blog.service.MailService;
 import com.blog.service.TemplateProcessor;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,6 @@ public class MailServiceImpl implements MailService {
 
     private final JavaMailSender javaMailSender;
     private final TemplateProcessor templateProcessor;
-
-    @Value("${spring.mail.username}")
-    private String sender;
 
     @Override
     public void sendMail(String to, String subject, String content) {
@@ -40,9 +37,9 @@ public class MailServiceImpl implements MailService {
 
     /**
      * Creates mime message for sending mail.
-     * @param to - recipient of the mail.
-     * @param subject - subject of the mail.
-     * @param content - body of the mail.
+     * @param to recipient of the mail.
+     * @param subject subject of the mail.
+     * @param content body of the mail.
      * @return - mime message.
      */
     @SneakyThrows
@@ -53,7 +50,6 @@ public class MailServiceImpl implements MailService {
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(content, true);
-        helper.setFrom(sender);
         return mimeMessage;
     }
 }
