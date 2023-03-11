@@ -1,6 +1,5 @@
 package com.blog.service.impl;
 
-import com.blog.config.MailProperties;
 import com.blog.data.Template;
 import com.blog.service.MailService;
 import com.blog.service.TemplateProcessor;
