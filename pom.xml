@@ -131,8 +131,7 @@
         <profile>
             <id>dev</id>
             <properties>
-                <active.profile>dev,swagger</active.profile>
-                <activatedProperties>dev,swagger</activatedProperties>
+                <spring.profiles.active>dev,swagger</spring.profiles.active>
             </properties>
         </profile>
     </profiles>
