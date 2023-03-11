@@ -26,9 +26,8 @@ jobs:
           remote_user: ${{ secrets.SERVER_DEV_USER }}
           remote_key: ${{ secrets.SERVER_DEV_PRIVATE_KEY }}
           remote_port: ${{ secrets.SERVER_DEV_PORT }}
-          env:
-            SPRING_MAIL_PASSWORD: ${{ secrets.SPRING_MAIL_PASSWORD }}
-            SPRING_MAIL_USERNAME: ${{ secrets.SPRING_MAIL_USERNAME }}
+          SPRING_MAIL_PASSWORD: ${{ secrets.SPRING_MAIL_PASSWORD }}
+          SPRING_MAIL_USERNAME: ${{ secrets.SPRING_MAIL_USERNAME }}
           path: target/blog-0.0.1-SNAPSHOT.jar
           remote_path: /root/blog/backend/blog-0.0.1-SNAPSHOT.jar
       - name: Restart server
