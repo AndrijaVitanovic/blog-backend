@@ -15,39 +15,52 @@ import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
-@Getter
-@Setter
+
+@Data
 @Entity
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @Table(name = "user")
 public class User extends Auditable implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
+
     @Column(name = "username")
     private String username;
+
     @Column(name = "password")
     @JsonIgnore
     private String password;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "first_name")
     private String firstName;
+
     @Column(name = "last_name")
     private String lastName;
+
     @Column(name = "about")
     private String about;
+
     @Column(name="display_name")
     private String displayName;
+
     @Column(name="email_verified")
     @JsonIgnore
     private Boolean emailVerified = false;
-    // TODO: Maybe get rid of WRITE_ONLY
+
+    @Lob
+    private byte[] image;
+
     @ManyToMany(fetch = FetchType.EAGER)
-    @JsonProperty(access = WRITE_ONLY)
+    @JsonIgnore
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_fk"), inverseJoinColumns = @JoinColumn(name = "role_fk"))
     private List<Role> roles = new ArrayList<>();
 
@@ -55,6 +68,7 @@ public class User extends Auditable implements UserDetails {
     private List<Contact> contacts = new ArrayList<>();
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles
                 .stream()

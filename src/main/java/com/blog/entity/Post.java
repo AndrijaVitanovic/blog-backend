@@ -53,6 +53,12 @@ public class Post extends Auditable {
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
+
+    @Column(name = "likes")
+    private Long likes;
+
+    @Column(name = "dislikes")
+    private Long dislikes;
 }
 
 

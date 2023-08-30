@@ -15,5 +15,11 @@ public interface PostService {
     Post findById(Long postId);
 
     void deleteById(Long postId);
+
+    void upvote(Post post);
+
+    void downvote(Post post);
+
+    List<Post> findByCategoryId(Long categoryId);
 }
 

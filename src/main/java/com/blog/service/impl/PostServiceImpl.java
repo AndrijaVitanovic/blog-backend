@@ -40,4 +40,21 @@ public class PostServiceImpl implements PostService {
     public void deleteById(Long postId) {
         postRepository.deleteById(postId);
     }
+
+    @Override
+    public void upvote(Post post) {
+        post.setLikes(post.getLikes() + 1);
+        postRepository.save(post);
+    }
+
+    @Override
+    public void downvote(Post post) {
+        post.setLikes(post.getLikes() - 1);
+        postRepository.save(post);
+    }
+
+    @Override
+    public List<Post> findByCategoryId(Long categoryId) {
+        return postRepository.findAllByCategory_Id(categoryId);
+    }
 }
