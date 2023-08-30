@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@PreAuthorize("isFullyAuthenticated()")
+// @PreAuthorize("isFullyAuthenticated()")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/posts")
@@ -34,6 +34,7 @@ public class PostController {
         return ResponseEntity.ok(postService.findById(id));
     }
 
+    @PreAuthorize("permitAll()")
     @PostMapping
     @Operation(summary = "Creates a new post", security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<Post> savePost(@RequestBody Post post) {
